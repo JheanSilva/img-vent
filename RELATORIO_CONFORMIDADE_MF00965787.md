@@ -62,6 +62,29 @@ Agravante de prazo: pela ATN, a **montagem e testes são Nov/2026** e a entrega 
 
 ---
 
+## 4-A. Quem resolve o quê — sistema × quadro · projeto × fabricação
+
+**Regra de ouro deste contrato:** quase não existe item "só de fabricação" solto. A ETC §3.3 e a ATN exigem **documento aprovado antes de fabricar**, e a NR-10 exige que o próprio projeto especifique proteções e identificação. Portanto, tudo que a fábrica vai executar precisa de uma **nota, tabela ou item de lista de materiais no projeto** que o torne exigível — e de uma **evidência** (ensaio, relatório, foto) no databook. A distinção útil é: *o que muda desenho/documento* (projeto) × *o que é execução com evidência* (fabricação).
+
+### Corte 1 — Projeto de pressurização (sistema) × Quadro elétrico
+
+| Escopo | Itens |
+|---|---|
+| **Projeto do SISTEMA de pressurização** (engenharia de ventilação — vive nos documentos do sistema: memoriais, datasheets, laudo, manual; não no PEL-0301) | Memorial de cálculo de vazão/pressão com **margem de 20 %** e seleção do ventilador — fecha a divergência PF630×PF560 (Q12) · dados reais do motor: 660 V, inverter-duty, IP66, PTC, aquecedor (Q3) · filosofia NT 13/NBR 14880: partida automática por detecção, comandos manuais (o botão da guarita já tem bornes Y7/Y8), **2 estágios 15→50 Pa** (origem do C12) e suprimento elétrico garantido (Q2) · ruído 75/65 dBA (ATN 70) · apreciação de riscos NR-12 da máquina (Q10, que decide o M17) · aceitação do WiFi do STG01 (Q11) · dutos, grelhas, veneziana (já conformes) · montagem de campo, comissionamento, treinamento, laudo técnico e manual O&M |
+| **QUADRO elétrico (PEL-0301)** (projetista elétrico + fábrica de painéis) | Todo o resto do relatório: C1–C11, C13, C14 · M1–M16, M18 · documentação D (unifilar, memoriais do painel, ensaios) · pendências Q1, Q5, Q7 (e Q4/Q8 compartilhadas) |
+| **Interface** (o sistema define, o quadro implementa) | C12 — 2 estágios (setpoint 15/50 Pa nasce no memorial do sistema; entra no esquema de comando e na parametrização) · M17 — parada de emergência (decisão da apreciação de riscos) · M19 — PTC/aquecedor do motor (depende do datasheet Q3) · Q6 — lista de sinais com o DCS |
+
+### Corte 2 — dentro do quadro: o que está no PROJETO × o que é conformidade de FABRICAÇÃO
+
+| Fase | Itens |
+|---|---|
+| **Tem que estar no PROJETO (rev.2)** — muda desenho, LM, nota ou memorial; sem isso a Valmet não aprova e a fábrica não tem o que executar | **Unifilar novo** (não existe) · esquema de força 690 V refeito (C7, C8, C14, M18) · esquema de comando com 2 estágios e cores corrigidas (C12, C9) · layout compartimentado Forma 4b com manoplas, IHMs, IP e pintura declarados (C1, C2, C3, C5, C10, M13) · tabela de plaquetas de tag e de placas de segurança (C4, C11, M2, M11) · LM corrigida e completa (M14, M8, M12) · lista de bornes com régua Z e cores novas (M3, M4, M16) · notas gerais: entrada só por baixo (C6), configuração rede IT (M9), classe de cabo 0,6/1 kV (C14), bitola de comando (M15) · PE reforçado (M1) · espelho/proteções internas (M5) · reservas (M7) · acessórios (M10) · memoriais: descritivo NR-10, térmico (M6), curto/coordenação (C13) |
+| **Conformidade de FABRICAÇÃO** — executar e evidenciar na fábrica; cada linha amarrada a uma nota/tabela do projeto acima | **Compras conforme LM e vendor list** (Q4): MCCB e fusíveis aR 690 V, kits IHM remota, invólucro 4b, kit de ventilação IP54/55, sinaleiros nas cores certas · **execução**: gravação e fixação das plaquetas (rebite/parafuso), cabeamento nas cores da legenda, montagem de espelhos/acrílicos, placas de fundo com prensa-cabos PG e teto cego, pintura conforme esquema aprovado, terminais pré-isolados de compressão e reaperto, limpeza final · **configuração**: jumper/parafuso IT dos CFW11 (M9), parametrização dos setpoints 15/50 Pa nos STG/CFW (C12) · **qualidade e evidência**: PIT aprovado antes de iniciar, ensaios de rotina NBR IEC 61439 (inspeção, continuidade PE, isolação, dielétrico, funcional) + relatório IEC 60204-1 §18, relatório de pintura, embalagem e identificação por peça (ATN 17/18), databook/As built, STEP 3D e tramitação M-Files |
+
+**Na prática:** a rev.2 do PEL-0301 resolve a coluna "projeto"; a coluna "fabricação" vira o **PIT + ordens de compra + folha de verificação de fábrica**, todos referenciando as notas da rev.2. Do lado do sistema, os documentos correm em paralelo (memorial de pressurização, apreciação de riscos, datasheets) — e dois deles travam o quadro: o datasheet do motor (Q3→M19) e a apreciação de riscos (Q10→M17).
+
+---
+
 ## 5. GRUPO A — Comentários formais do cliente (redlines da pág. 9) — todos pendentes
 
 ### C1 — Compartimentar o painel para Forma 4b ❌
