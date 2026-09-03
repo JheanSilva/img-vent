@@ -36,8 +36,9 @@ PAGINAS = [
 
 
 class Folha:
-    def __init__(self, pagina, descricao):
+    def __init__(self, pagina, descricao, total="11", nota_rev=None):
         self.pagina, self.descricao = pagina, descricao
+        self.total, self.nota_rev = total, nota_rev
         self.doc = ezdxf.new("R2010", setup=True)
         self.doc.header["$INSUNITS"] = 4
         self.doc.header["$LTSCALE"] = 4.0
@@ -287,9 +288,10 @@ class Folha:
                   "center", (CX + 132, CX + CW - 2))
         self.text(self.descricao, CX + 65.0, CY + 15.7, 2.4, "CARIMBO", "center",
                   (CX + 2, CX + 128))
-        self.text("FOLHA " + self.pagina + " DE 11", CX + 157.5, CY + 15.7, 2.4, "CARIMBO",
+        self.text("FOLHA " + self.pagina + " DE " + self.total, CX + 157.5, CY + 15.7, 2.4, "CARIMBO",
                   "center", (CX + 132, CX + CW - 2))
-        self.text(REV + "  " + DATA_REV + "  STORGE  -  REVISADO CONFORME RELATORIO DE CONFORMIDADE",
+        self.text(self.nota_rev or (REV + "  " + DATA_REV +
+                  "  STORGE  -  REVISADO CONFORME RELATORIO DE CONFORMIDADE"),
                   CX + CW / 2, CY + 5.2, 2.3, "CARIMBO", "center", z)
 
     # ------------------------------------------------------------ validacao
